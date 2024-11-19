@@ -25,11 +25,13 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
     const { data: session, status } = useSession();
 
     useEffect(() => {
-      // Redireciona para login se a rota for protegida e o usuário não estiver autenticado
-      if (!session && status === "unauthenticated" && isProtectedRoute) {
+      // Define as rotas públicas
+      const publicRoutes = ["/login", "/register"];
+      
+      if (status === "unauthenticated" && !publicRoutes.includes(router.pathname)) {
         router.push("/login");
       }
-    }, [session, status, router]);
+    }, [status, router]);
 
     if (status === "loading") {
       // Enquanto a sessão é carregada, exibe um spinner

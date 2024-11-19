@@ -1,3 +1,5 @@
+import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import { useRouter } from "next/router";
 
@@ -51,12 +53,13 @@ export default function Register() {
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-green-400 to-green-600">
       <div className="w-full max-w-md bg-white p-6 rounded-lg shadow-lg">
         <div className="flex flex-col items-center">
-          <img
+          <Image 
             src="/icon.svg"
             alt="Horta Solidária"
-            className="w-16 h-16 mb-4"
+            width={50}
+            height={50}
           />
-          <h1 className="text-2xl font-bold text-gray-700 mb-2">
+          <h1 className="mt-4 text-2xl font-bold text-gray-700 mb-2">
             Horta Solidária
           </h1>
           <p className="text-sm text-gray-500 mb-6">
@@ -150,9 +153,9 @@ export default function Register() {
         <div className="text-center mt-4">
           <p className="text-sm text-gray-500">
             Já tem uma conta?{" "}
-            <a href="/login" className="text-green-600 hover:text-green-500">
+            <Link  href="/login" className="text-green-600 hover:text-green-500">
               Entrar
-            </a>
+            </Link>
           </p>
         </div>
       </div>

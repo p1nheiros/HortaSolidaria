@@ -1,3 +1,5 @@
+import Image from "next/image";
+import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { useState } from "react";
 
@@ -23,12 +25,13 @@ export default function Login() {
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-green-400 to-green-600">
       <div className="w-full max-w-sm bg-white p-6 rounded-lg shadow-lg">
         <div className="flex flex-col items-center">
-          <img
-            src="/icon.svg" // Atualize para o caminho da sua logo
+            <Image
+            src="/icon.svg"
             alt="Horta Solidária"
-            className="w-16 h-16 mb-4"
-          />
-          <h1 className="text-2xl font-bold text-gray-700 mb-2">
+            width={52}
+            height={52}
+            />
+          <h1 className="mt-3 text-2xl font-bold text-gray-700 mb-2">
             Horta Solidária
           </h1>
           <p className="text-sm text-gray-500 mb-6">Bem vindo(a) de volta</p>
@@ -77,9 +80,9 @@ export default function Login() {
         <div className="text-center mt-4">
           <p className="text-sm text-gray-500">
             Ainda não tem uma conta?{" "}
-            <a href="/register" className="text-green-600 hover:text-green-500">
+            <Link href="/register" className="text-green-600 hover:text-green-500">
               Cadastre-se
-            </a>
+            </Link>
           </p>
         </div>
       </div>

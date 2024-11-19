@@ -1,3 +1,5 @@
+import Link from "next/link";
+import Image from "next/image";
 import React, { useState } from "react";
 import { FaChevronDown, FaSignOutAlt } from "react-icons/fa";
 import { signOut } from "next-auth/react"; // Import do signOut
@@ -21,7 +23,12 @@ const Sidebar = () => {
     <div className="flex h-screen">
       <aside className="w-64 bg-gray-800 text-white flex flex-col">
         <div className="rounded-b-lg flex items-center justify-between px-5 py-5 bg-gradient-to-br from-white to-green-200">
-          <img className="h-11 w-10" src="/icon.svg" alt="icon.svg" />
+        <Image 
+          src="/icon.svg"
+          alt="icon.svg" 
+          width={35}
+          height={30}
+        />
           <h1 className="text-2xl text-black font-bold">Horta Solidária</h1>
         </div>
 
@@ -29,12 +36,9 @@ const Sidebar = () => {
           <ul>
             {/* Dashboard */}
             <li>
-              <a
-                href="/dashboard"
-                className="block py-2 px-3 rounded hover:bg-gray-700"
-              >
+              <Link href="/dashboard" className="block py-2 px-3 rounded hover:bg-gray-700">
                 Dashboard
-              </a>
+              </Link>
             </li>
 
 {/* Centros */}
@@ -53,20 +57,14 @@ const Sidebar = () => {
               {isCentrosOpen && (
                 <ul className="pl-4 mt-2 space-y-2">
                   <li>
-                    <a
-                      href="/centros/cadastrar"
-                      className="block py-1 px-3 rounded hover:bg-gray-700"
-                    >
+                    <Link href="/centros/cadastrar" className="block py-1 px-3 rounded hover:bg-gray-700">
                       Cadastrar Centros
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a
-                      href="/centros/listar"
-                      className="block py-1 px-3 rounded hover:bg-gray-700"
-                    >
+                    <Link href="/centros/listar" className="block py-1 px-3 rounded hover:bg-gray-700">
                       Centros Cadastrados
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               )}
@@ -88,20 +86,14 @@ const Sidebar = () => {
               {isDoacoesOpen && (
                 <ul className="pl-4 mt-2 space-y-2">
                   <li>
-                    <a
-                      href="/doacoes/cadastrar"
-                      className="block py-1 px-3 rounded hover:bg-gray-700"
-                    >
+                    <Link href="/doacoes/cadastrar" className="block py-1 px-3 rounded hover:bg-gray-700">
                       Realizar Doação
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a
-                      href="/doacoes/listar"
-                      className="block py-1 px-3 rounded hover:bg-gray-700"
-                    >
+                    <Link href="/doacoes/listar" className="block py-1 px-3 rounded hover:bg-gray-700">
                       Doações Realizadas
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               )}
