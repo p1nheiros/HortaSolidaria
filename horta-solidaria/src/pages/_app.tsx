@@ -9,21 +9,30 @@ import { useEffect } from "react";
 export default function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   const router = useRouter();
 
-  // Define páginas que utilizam o Sidebar
-  const sidebarRoutes = ["/dashboard", "/doacoes/cadastrar", "/doacoes/listar", "/centros/cadastrar", "/centros/listar"];
-  const isSidebarPage = sidebarRoutes.includes(router.pathname);
+  // Rotas protegidas que utilizam o Sidebar
+  const protectedRoutes = [
+    "/dashboard",
+    "/doacoes/cadastrar",
+    "/doacoes/listar",
+    "/centros/cadastrar",
+    "/centros/listar",
+  ];
 
-  const AuthWrapper = ({ children }: { children: React.ReactNode }) => {
+  const isProtectedRoute = protectedRoutes.includes(router.pathname);
+
+  // Componente para gerenciar autenticação e redirecionamento
+  const AuthGuard = ({ children }: { children: React.ReactNode }) => {
     const { data: session, status } = useSession();
 
     useEffect(() => {
-      if (status === "unauthenticated" && router.pathname !== "/login") {
+      // Redireciona para login se a rota for protegida e o usuário não estiver autenticado
+      if (!session && status === "unauthenticated" && isProtectedRoute) {
         router.push("/login");
       }
-    }, [status, router]);
+    }, [session, status, router]);
 
     if (status === "loading") {
-      // Enquanto a sessão é carregada, mostra um spinner
+      // Enquanto a sessão é carregada, exibe um spinner
       return (
         <div className="flex items-center justify-center min-h-screen">
           <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-green-500"></div>
@@ -36,8 +45,8 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
 
   return (
     <SessionProvider session={session}>
-      <AuthWrapper>
-        {isSidebarPage ? (
+      <AuthGuard>
+        {isProtectedRoute ? (
           <div className="flex">
             <Sidebar />
             <div className="flex-1">
@@ -47,7 +56,7 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
         ) : (
           <Component {...pageProps} />
         )}
-      </AuthWrapper>
+      </AuthGuard>
     </SessionProvider>
   );
 }
