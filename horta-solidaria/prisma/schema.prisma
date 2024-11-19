@@ -1,10 +1,10 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-}
-
-generator client {
-  provider = "prisma-client-js"
 }
 
 model Usuario {
@@ -12,10 +12,8 @@ model Usuario {
   nome      String
   email     String   @unique
   senha     String
-  nivel     String   @default("usuario") // Admin ou usuario
+  nivel     String   @default("usuario")
   createdAt DateTime @default(now())
-
-  // Relacionamento com Doacao
   doacoes   Doacao[]
 }
 
@@ -25,24 +23,19 @@ model CentroDoacao {
   endereco     String
   itensAceitos String[]
   createdAt    DateTime @default(now())
-
-  // Relacionamento com Doacao
   doacoes      Doacao[]
 }
 
 model Doacao {
-  id        String   @id @default(uuid())
-  idUsuario String
-  idCentro  String
-  item      String
-  valor     Float
+  id         String       @id @default(uuid())
+  idUsuario  String
+  idCentro   String
+  item       String
+  valor      Float
   quantidade Int
   dataDoacao DateTime
-  status    String   @default("pendente") // pendente, concluido, cancelado
-
-  createdAt DateTime @default(now())
-
-  // Relacionamentos
-  Usuario   Usuario   @relation(fields: [idUsuario], references: [id])
-  Centro    CentroDoacao @relation(fields: [idCentro], references: [id])
+  status     String       @default("pendente")
+  createdAt  DateTime     @default(now())
+  Centro     CentroDoacao @relation(fields: [idCentro], references: [id])
+  Usuario    Usuario      @relation(fields: [idUsuario], references: [id])
 }
